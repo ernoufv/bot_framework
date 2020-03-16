@@ -17,7 +17,7 @@ use App\Bot\Channels\WebQueryHelper;
 
 use Carbon\Carbon;
 
-class Bot
+class BotInstance
 {
     var $channel;
     var $userId;

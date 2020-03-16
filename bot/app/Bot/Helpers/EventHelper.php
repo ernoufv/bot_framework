@@ -3,7 +3,7 @@
 namespace App\Bot\Helpers;
 
 use Bot;
-use App\Bot\Bot;
+use App\Bot\BotInstance;
 use App\Bot\Log;
 use App\Bot\Messages\Text;
 use App\Bot\NlpConnectors\NlpSAPCAI;
@@ -31,13 +31,13 @@ class EventHelper
             $message = $body;
             $userId = $body["user_id"];
 
-            $bot = new Bot(WEB, $userId);
+            $bot = new BotInstance(WEB, $userId);
 
         }else if($channel == "FACEBOOK"){
             $message = $body["entry"][0]["messaging"][0];
             $userId = $message["sender"]["id"];
             
-            $bot = new Bot(FACEBOOK, $userId);
+            $bot = new BotInstance(FACEBOOK, $userId);
 
             //$this->respondOK();
             if(env("APP_DEBUG") !== true){

@@ -1,25 +1,6 @@
 version: '3.5'
 
 services:
-  bot:
-    build:
-      context: '.'
-      args:
-        uid: 1000
-    container_name: bot
-    ports:
-      - 8000:80
-    environment:
-      - APACHE_RUN_USER=#1000
-      - APACHE_RUN_GROUP=#1000
-    volumes:
-      - ./bot:/var/www/html
-      - ./logs/bot:/var/www/html/storage/logs
-    networks:
-      backend:
-        aliases:
-          - app
-
   bot-mysql-db:
     image: mysql:5.7
     container_name: bot-mysql-db
@@ -31,24 +12,27 @@ services:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
-    networks:
-      backend:
-        aliases:
-          - bot-mysql-db
+
+  bot:
+    depends_on:
+      - bot-mysql-db
+    image: vernouf-bot-framework:dev-latest
+    container_name: bot
+    ports:
+      - 9980:80
+    environment:
+      - APACHE_RUN_USER=#1000
+      - APACHE_RUN_GROUP=#1000
+    volumes:
+      - ./bot:/var/www/html
+      - ./logs/bot:/var/www/html/storage/logs
 
   bot-pma:
     image: phpmyadmin/phpmyadmin
     container_name: bot-pma
-    networks:
-      - backend
     ports:
       - 8100:80
     environment:
       - MYSQL_USERNAME=root
       - MYSQL_ROOT_PASSWORD=securerootpassword
       - PMA_HOST=bot-mysql-db
-    
-
-networks:
-  backend:
-    name: backend-network

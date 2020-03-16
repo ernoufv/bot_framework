@@ -3,7 +3,7 @@
 namespace App\Bot\Helpers;
 
 use Bot;
-use App\Bot\Bot;
+use App\Bot\BotInstance;
 use App\Bot\Attachments\Attachment;
 
 class MessageHelper{
