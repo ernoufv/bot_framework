@@ -16,7 +16,7 @@ services:
   bot:
     depends_on:
       - bot-mysql-db
-    image: vernouf-bot-framework:dev-latest
+    image: ernoufv/bot-framework:dev-latest
     container_name: bot
     ports:
       - 9980:80

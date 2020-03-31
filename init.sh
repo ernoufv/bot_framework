@@ -1,11 +1,7 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 file=./initialized.bot
-
 if test ! -f "$file"; then
-
     docker-compose up -d
-
     docker exec -i bot-mysql-db mysql -uroot -psecurerootpassword <<< "CREATE DATABASE mychatbot;"
     docker exec -u root -it bot bash -c "sudo chown root:root storage/logs"
     docker exec -u root -it bot bash -c "sudo chown -R devuser:devuser storage/logs"
@@ -20,9 +16,6 @@ if test ! -f "$file"; then
     docker-compose down
 
     echo "Installation done ! Now, run \"./run\""
-
-
 else
     echo "Your installation is already done !"
 fi
-
