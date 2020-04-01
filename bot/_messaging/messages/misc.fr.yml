@@ -84,7 +84,7 @@ messages:
 
     seeCarousel:
         type: carousel
-        aspect_ratio: horizontal
+        option: random
         cards: 
             -
                 image: https://picsum.photos/500/300

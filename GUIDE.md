@@ -9,14 +9,17 @@ For now, there is two ways to create messages in your bot :
 - With YAML structured files (located in ./bot/_messaging/messages)
     - Files must be names *NAME*.**LANGUAGE_CODE**.yml
 
+> Each representation below in PHP Coding & YAML generates the same output.
+
 ## Sending messages
 
 ### Index :
-- [Text message](#text-message)
-- [Image](#image)
-- [Video](#video)
-- [Quick replies](#quick-replies)
-- [Buttons](#buttons)
+- [Text message](#text-message-)
+- [Image](#image-)
+- [Video](#video-)
+- [Quick replies](#quick-replies-)
+- [Buttons](#buttons-)
+- [Generic template (carousel)](#generic-template-)
 
 ### Text message :
 
@@ -210,3 +213,139 @@ actionName:
 - Quick replies is an extension that can only be attached to a text, an image & or a video
 - **Up to 10** quick replies can be attached to a message
 
+### Buttons :
+
+<table>
+<tr>
+<td> PHP Coding </td> <td> YAML </td>
+</tr>
+<tr>
+<td>
+
+```php
+function actionName($bot, $param = null){
+
+    $msg = new Text("This messages contrains buttons");
+    $msg->addButton("Button Label", "actionName");
+    $msg->addButton("Button Label 2", "https://www.google.com");
+
+    $bot->sendMessage($msg);
+}
+```
+
+</td>
+<td>
+
+```yaml
+actionName:
+    type: buttons
+    text: This messages contrains buttons
+    buttons:
+        -
+            label: Button Label
+            payload: actionName
+        -
+            label: Button Label 2
+            payload: https://www.google.com
+
+```
+
+</td>
+</table>
+
+**Buttons restrictions :** 
+- Buttons can only be attached to a text
+- **Up to 3** buttons can be attached to a text message
+
+## **Generic template :** (carousel)
+
+**A generic template is a carousel of cards that contains different types of data :**
+- An image (optional)
+- A title
+- A description (optional)
+- A default action URL (optional)
+- Up to 3 buttons (optional)
+
+**Note** - At least :
+- Title + description (if image not defined)
+- Image + title (if description not defined)
+
+<table>
+<tr>
+<td> PHP Coding </td> <td> YAML </td>
+</tr>
+<tr>
+<td>
+
+```php
+function actionName($bot, $param = null){
+
+    $carousel = new Generic();
+
+    $carsouel->addCard(
+        "Card 1 title",
+        "Card 1 description",
+        "https://picsum.photos/500/300",
+        array(
+            new Button("Button label 1", "actionName"),
+            new Button("Button label 2", "https://www.google.com"),
+        ),
+        "https://www.default_url.com"
+    );
+
+    $carsouel->addCard(
+        "Card 2 title",
+        "Card 2 description",
+        "https://picsum.photos/500/300",
+        array(
+            new Button("Button label 1", "actionName"),
+            new Button("Button label 2", "https://www.google.com"),
+        ),
+        "https://www.default_url.com"
+    );
+
+    //Optional, if you want to randomize cards order
+    // $carousel->shuffleCards();
+
+    $bot->sendMessage($carousel);
+
+}
+```
+
+</td>
+<td>
+
+```yaml
+actionName:
+    type: carousel
+    #option: random (optional, if you want to randomize cards order)
+    cards: 
+        -
+            image: https://picsum.photos/500/300
+            title: Card 1 title
+            description: Card 1 description
+            default_url: https://www.default_url.com
+            buttons:
+                -
+                    label: Button label 1
+                    payload: actionName
+                -
+                    label: Button label 2
+                    payload: https://www.google.com
+        -
+            image: https://picsum.photos/500/300
+            title: Card 2 title
+            description: Card 2 description
+            default_url: https://images.google.com
+            buttons:
+                -
+                    label: Button label 1
+                    payload: actionName
+                -
+                    label: Button label 2
+                    payload: https://www.google.com
+
+```
+
+</td>
+</table>
