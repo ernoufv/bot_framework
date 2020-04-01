@@ -50,7 +50,6 @@ class WebQueryHelper
           'content' => 
           array (
             'text' => $message->getText(),
-            'text_message' => $message->getText(),
           ),
         );
 

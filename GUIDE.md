@@ -7,13 +7,16 @@
 For now, there is two ways to create messages in your bot :
 - Directly from code in conversational files (located in ./bot/_messaging/responses)
 - With YAML structured files (located in ./bot/_messaging/messages)
-    - Files must be names *WHAT_YOU_WANT*.**LANG_CODE**.yml
+    - Files must be names *NAME*.**LANGUAGE_CODE**.yml
 
 ## Sending messages
 
 ### Index :
-- [Text message](#Text%20message)
-- [Quick replies](#Quick%20replies)
+- [Text message](#text-message)
+- [Image](#image)
+- [Video](#video)
+- [Quick replies](#quick-replies)
+- [Buttons](#buttons)
 
 ### Text message :
 
@@ -85,6 +88,81 @@ actionName:
 </tr>
 </table>
 
+### Image :
+
+<table>
+<tr>
+<td> PHP Coding </td> <td> YAML </td>
+</tr>
+<tr>
+<td>
+
+```php
+function actionName($bot, $param = null){
+
+    $image = new Image("https://picsum.photos/500/300");
+    $bot->sendMessage($image);
+
+}
+```
+
+</td>
+<td>
+
+```yaml
+actionName:
+    type: image
+    url: https://picsum.photos/500/300
+
+```
+
+</td>
+</tr>
+</table>
+
+**Images restriction :**
+- **Up to 25MB** (Facebook Messenger only)
+- Formats : JPEG|PNG|GIF
+
+**Information :** When an image is sent to Facebook Messenger, it's binary data are saved in Facebook CDN and returns an "Attachment ID". This attachment ID is saved in bot database to be reused and avoid image re-uploading each time the action is triggered.
+
+### Video :
+
+<table>
+<tr>
+<td> PHP Coding </td> <td> YAML </td>
+</tr>
+<tr>
+<td>
+
+```php
+function actionName($bot, $param = null){
+
+    $video = new Video("https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1280_10MG.mp4");
+    $bot->sendMessage($video);
+
+}
+```
+
+</td>
+<td>
+
+```yaml
+actionName:
+    type: video
+    url: https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1280_10MG.mp4
+```
+
+</td>
+</tr>
+</table>
+
+**Videos restriction :**
+- **Up to 25MB** (Facebook Messenger only)
+- Formats : MP4|MOV
+
+**Information :** When a video is sent to Facebook Messenger, it's binary data are saved in Facebook CDN and returns an "Attachment ID". This attachment ID is saved in bot database to be reused and avoid video re-uploading each time the action is triggered.
+
 ### Quick replies :
 
 <table>
@@ -125,10 +203,10 @@ actionName:
 </td>
 </table>
 
-**Important notes, Quick replies restrictions :** 
-- The payload **can't** be a web URL
+**Quick replies restrictions :** 
+- The payload **can't** be a Web URL, only a bot action
 - The message containing quickreplies **must** be the **last** message of a group of messages
     - This is because the quick replies buttons disapears when there are clicked, or if a messages is sent.
-- Quick replies can only be attached to a text
+- Quick replies is an extension that can only be attached to a text, an image & or a video
 - **Up to 10** quick replies can be attached to a message
 

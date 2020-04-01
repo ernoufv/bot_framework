@@ -309,8 +309,6 @@ class MessageHelper{
         switch($message["type"]){
             case "text":
                 return "sendText";
-            case "quickreplies":
-                return "sendQuickReplies";
             case "buttons":
                 return "sendButtons";
             case "image":

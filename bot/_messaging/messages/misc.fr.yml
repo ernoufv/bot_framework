@@ -41,8 +41,11 @@ messages:
             - Mince, je crois que je n'ai pas compris votre message. Je vous invite à rééssayer.
 
     seeQuickReplies:
-        type: quickreplies
-        text: "Voir :"
+        type: text
+        text: 
+            - "Voir :"
+            - Voici des actions
+        option: queue
         quickreplies:
             -
                 label: Pas entraîné
@@ -68,8 +71,10 @@ messages:
     seeImage:
         type: image
         url: https://picsum.photos/500/300
-        next_messages:
-            - sayHello
+        quickreplies:
+            -
+                label: QR 1
+                payload: payload1
 
     seeVideo:
         type: video
