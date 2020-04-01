@@ -30,3 +30,7 @@ function sendTextQueue($bot, $message, $param = null){
     $bot->sendMessages($texts);
 
 }
+
+function sayHello($bot, $message = null, $param = null){
+    $bot->sendMessage("Hello from code");
+}

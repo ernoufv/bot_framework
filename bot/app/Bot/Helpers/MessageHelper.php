@@ -220,7 +220,6 @@ class MessageHelper{
     
                     if($nextMessages){
                         foreach($nextMessages as $nextMessage){
-                            $this->setPostbackPayload($nextMessage);
                             $this->processPostback($bot, $userId, $nextMessage);
                         }
                     }
@@ -231,7 +230,12 @@ class MessageHelper{
             }
 
         }else{
-            $bot->sendMessage("⚠️ WARNING : Message referenced by \"". $function ."\" doesn't exists in wording files ⚠️");
+            if($bot->functionExists($payload)){
+                $bot->launchFunction($payload, array($bot, null, $parameters));
+            }else{
+                $bot->sendMessage("⚠️ Error ⚠️");
+                $bot->sendMessage("Action \"". $payload ."\" doesn't exists");
+            }
         }
     }
 
@@ -292,7 +296,12 @@ class MessageHelper{
             }
 
         }else{
-            $bot->sendMessage("⚠️ WARNING : Message referenced by \"". $function ."\" doesn't exists in wording files ⚠️");
+            if($bot->functionExists($payload)){
+                $bot->launchFunction($payload, array($bot, null, $parameters));
+            }else{
+                $bot->sendMessage("⚠️ Error ⚠️");
+                $bot->sendMessage("Action \"". $payload ."\" doesn't exists");
+            }
         }
     }
     
