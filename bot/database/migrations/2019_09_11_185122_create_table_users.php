@@ -31,8 +31,8 @@ class CreateTableUsers extends Migration
             $table->string("lastname")->nullable($value = true);
             $table->string("channel")->nullable($value = true);
 
-            $table->string("flag")->nullable($value = true);
-            $table->string("flag_data")->nullable($value = true);
+            $table->text("flag")->nullable($value = true);
+            $table->text("flag_data")->nullable($value = true);
             $table->dateTime("flag_date")->nullable($value = true);
 
             $table->index('user_id');
