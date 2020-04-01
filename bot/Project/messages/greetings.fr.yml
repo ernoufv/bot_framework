@@ -1,0 +1,11 @@
+context_lang: fr-FR
+context_name: greetings
+
+messages:
+    sayHello:
+        type: text
+        option: random
+        text: 
+            - Bonjour !
+            - Hello !
+            - Bienvenue !

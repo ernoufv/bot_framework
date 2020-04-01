@@ -16,6 +16,8 @@ use App\Bot\Channels\FacebookQueryHelper;
 use App\Bot\Channels\WebQueryHelper;
 
 use Carbon\Carbon;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 class BotInstance
 {
@@ -191,6 +193,28 @@ class BotInstance
     public function userLastname(){
         $queryHelper = $this->selectQueryHelper($this->channel);
         return $queryHelper->getUserLastname($this->userId); 
+    }
+
+    public function messageExists($name){
+        $lang = "fr";
+
+        try{
+            $files = glob("../Project/messages/*.".$lang.".yml");
+
+            if ($files === false) {
+                throw new RuntimeException("Failed to glob for messages files");
+            }else{
+                foreach($files as $file){
+                    $yamlContent = Yaml::parse(file_get_contents($file));
+                    if(isset($yamlContent['messages'][$name])){
+                        return $file;
+                    }
+                }
+                return false;
+            }
+        }catch(Exception $e){
+            printf($e);
+        }
     }
 
     public function functionExists($name){

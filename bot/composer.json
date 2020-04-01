@@ -9,7 +9,8 @@
         "google/cloud-dialogflow": "^0.10.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/lumen-framework": "5.8.*",
-        "laravel/slack-notification-channel": "^2.0"
+        "laravel/slack-notification-channel": "^2.0",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
