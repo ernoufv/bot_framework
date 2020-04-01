@@ -7,7 +7,7 @@
 
 
 ## Licence :
-- WTFPL
+- [MIT](LICENCE)
 
 ## Stack : 
 - PHP 7.2 (apache)
