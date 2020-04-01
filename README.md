@@ -6,8 +6,8 @@
 - [Development Guide](GUIDE.md)
 
 
-## Licence :
-- [MIT](LICENCE)
+## License :
+- [MIT](LICENSE)
 
 ## Stack : 
 - PHP 7.2 (apache)
