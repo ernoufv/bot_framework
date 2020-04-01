@@ -30,8 +30,9 @@ class EventHelper
         if($channel == "WEB"){
             $message = $body;
             $userId = $body["user_id"];
+            $lang = isset($body['lang']) ? $body['lang'] : env("DEFAULT_LANG");
 
-            $bot = new BotInstance(WEB, $userId);
+            $bot = new BotInstance(WEB, $userId, $lang);
 
         }else if($channel == "FACEBOOK"){
             $message = $body["entry"][0]["messaging"][0];

@@ -23,18 +23,19 @@ class BotInstance
 {
     var $channel;
     var $userId;
+    var $lang;
 
     //This variable is used only in Facebook Channel
     var $personaId;
     //-------------------------------------------
 
-    //These variables are used only in Web Channel
+    //This variable is used only in Web Channel
     var $webResponse;
     //-------------------------------------------
 
     var $db;
 
-    public function __construct($channel, $userId, $personaId = null)
+    public function __construct($channel, $userId, $lang = null)
     {
         switch($channel){
             case WEB:
@@ -49,7 +50,7 @@ class BotInstance
                 break;
             case FACEBOOK:
                 $this->channel = "FACEBOOK";
-                $this->personaId = $personaId;
+                $this->personaId = null;
                 break;
             default:
                 $this->channel = "UNKNOWN";
@@ -58,6 +59,7 @@ class BotInstance
         }
         
         $this->userId = $userId;
+        $this->lang = $lang == null ? env("DEFAULT_LANG") : $lang;
 
         $this->db = app('db')->connection(env("DB_CONNECTION"));
     }
@@ -66,16 +68,24 @@ class BotInstance
         return $this->channel;
     }
 
-    public function getUserId(){
-        return $this->userId;
-    }
-
     public function setChannel($channel){
         $this->channel = $channel;
     }
 
+    public function getUserId(){
+        return $this->userId;
+    }
+
     public function setUserId($userId){
         $this->userId = $userId;
+    }
+
+    public function getLang(){
+        return $this->lang;
+    }
+
+    public function setLang($lang){
+        $this->lang = $lang;
     }
 
     public function setWebSourceType($sourceType){
@@ -196,10 +206,10 @@ class BotInstance
     }
 
     public function messageExists($name){
-        $lang = "fr";
+        $lang = $this->getLang();
 
         try{
-            $files = glob("../Project/messages/*.".$lang.".yml");
+            $files = glob("../_messaging/messages/*.".$lang.".yml");
 
             if ($files === false) {
                 throw new RuntimeException("Failed to glob for messages files");

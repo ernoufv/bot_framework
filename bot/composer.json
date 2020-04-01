@@ -2,7 +2,7 @@
     "name": "vernouf/bot_framework",
     "description": "A light PHP bot framework ready for Facebook Messenger & direct API usage",
     "keywords": ["bot", "framework"],
-    "license": "MIT",
+    "license": "WTFPL",
     "type": "project",
     "require": {
         "php": ">=7.1.3",
@@ -26,7 +26,7 @@
             "App\\": "app/"
         },
         "files": [
-            "Project/autoload_files.php"
+            "_messaging/autoload_files.php"
         ]
     },
     "autoload-dev": {

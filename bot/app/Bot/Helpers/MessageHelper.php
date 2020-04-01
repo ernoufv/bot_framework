@@ -216,7 +216,7 @@ class MessageHelper{
                 }
             }else{
                 if($bot->functionExists($type)){
-                    $bot->launchFunction($type, array($bot, $message, $parameters));
+                    $bot->launchFunction($type, array($bot, $parameters, $message));
     
                     if($nextMessages){
                         foreach($nextMessages as $nextMessage){
@@ -231,7 +231,7 @@ class MessageHelper{
 
         }else{
             if($bot->functionExists($payload)){
-                $bot->launchFunction($payload, array($bot, null, $parameters));
+                $bot->launchFunction($payload, array($bot, $parameters, null));
             }else{
                 $bot->sendMessage("⚠️ Error ⚠️");
                 $bot->sendMessage("Action \"". $payload ."\" doesn't exists");
@@ -282,7 +282,7 @@ class MessageHelper{
                 }
             }else{
                 if($bot->functionExists($type)){
-                    $bot->launchFunction($type, array($bot, $message, $parameters));
+                    $bot->launchFunction($type, array($bot, $parameters, $message));
     
                     if($nextMessages){
                         foreach($nextMessages as $nextMessage){
@@ -297,7 +297,7 @@ class MessageHelper{
 
         }else{
             if($bot->functionExists($payload)){
-                $bot->launchFunction($payload, array($bot, null, $parameters));
+                $bot->launchFunction($payload, array($bot, $parameters, null));
             }else{
                 $bot->sendMessage("⚠️ Error ⚠️");
                 $bot->sendMessage("Action \"". $payload ."\" doesn't exists");

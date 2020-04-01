@@ -4,14 +4,14 @@ namespace Bot;
 
 use App\Bot\Messages\Text;
 
-function sendText($bot, $message, $param = null){
+function sendText($bot, $param = null, $message){
 
     $text = new Text($message["text"]);
     $bot->sendMessage($text);
 
 }
 
-function sendTextRandom($bot, $message, $param = null){
+function sendTextRandom($bot, $param = null, $message){
 
     $randText = array_rand($message["text"]);
     $text = new Text($message["text"][$randText]);
@@ -19,7 +19,7 @@ function sendTextRandom($bot, $message, $param = null){
 
 }
 
-function sendTextQueue($bot, $message, $param = null){
+function sendTextQueue($bot, $param = null, $message){
 
     $texts = array();
 

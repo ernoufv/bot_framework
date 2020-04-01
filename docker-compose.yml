@@ -16,7 +16,7 @@ services:
   bot:
     depends_on:
       - bot-mysql-db
-    image: ernoufv/bot-framework:dev-latest
+    image: bot-framework
     container_name: bot
     ports:
       - 9980:80
@@ -36,25 +36,3 @@ services:
       - MYSQL_USERNAME=root
       - MYSQL_ROOT_PASSWORD=securerootpassword
       - PMA_HOST=bot-mysql-db
-
-  mongo:
-    depends_on:
-      - bot
-    image: mongo
-    container_name: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-
-  bot-mongo-express:
-    depends_on:
-      - mongo
-    image: mongo-express
-    container_name: bot-mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: root

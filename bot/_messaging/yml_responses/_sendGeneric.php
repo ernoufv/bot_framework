@@ -5,7 +5,7 @@ namespace Bot;
 use App\Bot\Messages\Templates\Generic;
 use App\Bot\Messages\Templates\Button;
 
-function sendGeneric($bot, $message, $param = null){
+function sendGeneric($bot, $param = null, $message){
     
     $carousel = new Generic();
 
@@ -32,7 +32,7 @@ function sendGeneric($bot, $message, $param = null){
 
 }
 
-function sendGenericRandom($bot, $message, $param = null){
+function sendGenericRandom($bot, $param = null, $message){
     
     $carousel = new Generic();
 

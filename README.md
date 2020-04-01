@@ -1,7 +1,26 @@
-#Environment install
+# PHP Bot Framework
 
-> docker-compose -f docker-compose.yml up
+## Index : 
+- [Installation](INSTALL.md)
+- [Configuration](CONFIGURATION.md)
+- [Development Guide](GUIDE.md)
 
-Then,
 
-> ./init.sh
+## Licence :
+- WTFPL
+
+## Stack : 
+- PHP 7.2 (apache)
+- MySQL 5.7
+
+## Capabilities :
+
+### Platforms :
+- Facebook Messenger Chatbot
+- Direct API Chatbot
+
+### NLP ready with :
+- Google DialogFlow
+- Microsoft LUIS
+- SAP Conversational AI
+- RASA

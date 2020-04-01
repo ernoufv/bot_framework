@@ -4,7 +4,7 @@ namespace Bot;
 
 use App\Bot\Messages\Text;
 
-function sendQuickreplies($bot, $message, $param = null){
+function sendQuickreplies($bot, $param = null, $message){
 
     $text = new Text($message["text"]);
     foreach($message["quickreplies"] as $qr){
