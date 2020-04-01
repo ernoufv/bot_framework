@@ -7,6 +7,7 @@
 For now, there is two ways to create messages in your bot :
 - Directly from code in conversational files (located in ./bot/_messaging/responses)
 - With YAML structured files (located in ./bot/_messaging/messages)
+    - Files must be names *WHAT_YOU_WANT*.**LANG_CODE**.yml
 
 ## Sending messages
 
@@ -108,7 +109,6 @@ function actionName($bot, $param = null){
 <td>
 
 ```yaml
-# Send a simple text
 actionName:
     type: text
     text: This messages contrains quick replies
