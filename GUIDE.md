@@ -25,7 +25,7 @@ For now, there is two ways to create messages in your bot :
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -60,6 +60,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
@@ -95,7 +102,7 @@ actionName:
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -110,6 +117,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
@@ -133,7 +147,7 @@ actionName:
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -148,6 +162,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
@@ -170,7 +191,7 @@ actionName:
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -187,6 +208,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
@@ -217,7 +245,7 @@ actionName:
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -234,6 +262,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
@@ -272,7 +307,7 @@ actionName:
 
 <table>
 <tr>
-<td> PHP Coding </td> <td> YAML </td>
+<td> PHP Coding </td>
 </tr>
 <tr>
 <td>
@@ -313,6 +348,13 @@ function actionName($bot, $param = null){
 ```
 
 </td>
+</tr>
+</table>
+<table>
+<tr>
+<td> YAML </td>
+</tr>
+<tr>
 <td>
 
 ```yaml
