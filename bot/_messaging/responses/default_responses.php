@@ -10,7 +10,6 @@ use App\Bot\Messages\Audio;
 use App\Bot\Messages\Templates\Generic;
 use App\Bot\Messages\Templates\Button;
 
-
 function cantReply($bot){
     $msg = new Text("Désolé, mais je ne suis pas encore entraîné pour répondre à vos questions.");
     $bot->sendMessage($msg);

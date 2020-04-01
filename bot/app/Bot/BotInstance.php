@@ -16,23 +16,26 @@ use App\Bot\Channels\FacebookQueryHelper;
 use App\Bot\Channels\WebQueryHelper;
 
 use Carbon\Carbon;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 class BotInstance
 {
     var $channel;
     var $userId;
+    var $lang;
 
     //This variable is used only in Facebook Channel
     var $personaId;
     //-------------------------------------------
 
-    //These variables are used only in Web Channel
+    //This variable is used only in Web Channel
     var $webResponse;
     //-------------------------------------------
 
     var $db;
 
-    public function __construct($channel, $userId, $personaId = null)
+    public function __construct($channel, $userId, $lang = null)
     {
         switch($channel){
             case WEB:
@@ -47,7 +50,7 @@ class BotInstance
                 break;
             case FACEBOOK:
                 $this->channel = "FACEBOOK";
-                $this->personaId = $personaId;
+                $this->personaId = null;
                 break;
             default:
                 $this->channel = "UNKNOWN";
@@ -56,6 +59,7 @@ class BotInstance
         }
         
         $this->userId = $userId;
+        $this->lang = $lang == null ? env("DEFAULT_LANG") : $lang;
 
         $this->db = app('db')->connection(env("DB_CONNECTION"));
     }
@@ -64,16 +68,24 @@ class BotInstance
         return $this->channel;
     }
 
-    public function getUserId(){
-        return $this->userId;
-    }
-
     public function setChannel($channel){
         $this->channel = $channel;
     }
 
+    public function getUserId(){
+        return $this->userId;
+    }
+
     public function setUserId($userId){
         $this->userId = $userId;
+    }
+
+    public function getLang(){
+        return $this->lang;
+    }
+
+    public function setLang($lang){
+        $this->lang = $lang;
     }
 
     public function setWebSourceType($sourceType){
@@ -191,6 +203,28 @@ class BotInstance
     public function userLastname(){
         $queryHelper = $this->selectQueryHelper($this->channel);
         return $queryHelper->getUserLastname($this->userId); 
+    }
+
+    public function messageExists($name){
+        $lang = $this->getLang();
+
+        try{
+            $files = glob("../_messaging/messages/*.".$lang.".yml");
+
+            if ($files === false) {
+                throw new RuntimeException("Failed to glob for messages files");
+            }else{
+                foreach($files as $file){
+                    $yamlContent = Yaml::parse(file_get_contents($file));
+                    if(isset($yamlContent['messages'][$name])){
+                        return $file;
+                    }
+                }
+                return false;
+            }
+        }catch(Exception $e){
+            printf($e);
+        }
     }
 
     public function functionExists($name){

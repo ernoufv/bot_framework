@@ -295,7 +295,6 @@ class FacebookQueryHelper// extends Model
 
         $res = json_decode($response->getBody(), true);
         return $res["last_name"];
-
      }
     
 

@@ -6,6 +6,9 @@ use Bot;
 use App\Bot\BotInstance;
 use App\Bot\Attachments\Attachment;
 
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+
 class MessageHelper{
 
     var $channel;
@@ -89,6 +92,14 @@ class MessageHelper{
             return $this->content["postback"]["payload"];
         }else if($this->channel == "WEB"){
             return $this->content["message"]["payload"];
+        }
+    }
+
+    public function setPostbackPayload($payload){
+        if($this->channel == "FACEBOOK"){
+            $this->content["postback"]["payload"] = $payload;
+        }else if($this->channel == "WEB"){
+            $this->content["message"]["payload"] = $payload;
         }
     }
 
@@ -183,22 +194,63 @@ class MessageHelper{
             $parameters = null;
         }
 
-        if($bot->functionExists($function)){
-            $bot->launchFunction($function, array($bot, $parameters));
+        $messageFile = $bot->messageExists($function);
+        if($messageFile){
+            
+            $yamlContent = Yaml::parse(file_get_contents($messageFile));
+            $message = $yamlContent['messages'][$function];
+
+            $type = $this->getMessageType($message);
+            $option = $this->getMessageOption($message);
+            $nextMessages = $this->getMessageNext($message);
+
+            if($option){
+                $type .= $option;
+            }
+
+            if($type == "group"){
+                if($nextMessages){
+                    foreach($nextMessages as $nextMessage){
+                        $this->processPostback($bot, $userId, $nextMessage);
+                    }
+                }
+            }else{
+                if($bot->functionExists($type)){
+                    $bot->launchFunction($type, array($bot, $parameters, $message));
+    
+                    if($nextMessages){
+                        foreach($nextMessages as $nextMessage){
+                            $this->processPostback($bot, $userId, $nextMessage);
+                        }
+                    }
+                }else{
+                    $bot->sendMessage("⚠️ Error ⚠️");
+                    $bot->sendMessage("Function \"". $type ."\" doesn't exists");
+                }
+            }
+
         }else{
-            $bot->sendMessage("⚠️ Error ⚠️");
-            $bot->sendMessage("Function \"". $function ."\" doesn't exists");
+            if($bot->functionExists($payload)){
+                $bot->launchFunction($payload, array($bot, $parameters, null));
+            }else{
+                $bot->sendMessage("⚠️ Error ⚠️");
+                $bot->sendMessage("Action \"". $payload ."\" doesn't exists");
+            }
         }
     }
 
-    public function processPostback($bot, $userId){
-        $payload = $this->getPostbackPayload();
-
-        if($bot->getChannel() == "WEB"){
-            $bot->setWebSourceType("postback");
-            $bot->setWebSourceContent($payload);
+    public function processPostback($bot, $userId, $forced = false){
+        
+        if($forced == false){
+            $payload = $this->getPostbackPayload();
+            if($bot->getChannel() == "WEB" && $forced == false){
+                $bot->setWebSourceType("postback");
+                $bot->setWebSourceContent($payload);
+            }
+        }else{
+            $payload = $forced;
         }
-
+        
         if(strstr($payload, "__")){
             $data = explode("__", $payload);
             $function = $data[0];
@@ -208,12 +260,93 @@ class MessageHelper{
             $parameters = null;
         }
 
-        if($bot->functionExists($function)){
-            $bot->launchFunction($function, array($bot, $parameters));
+        $messageFile = $bot->messageExists($function);
+        if($messageFile){
+            
+            $yamlContent = Yaml::parse(file_get_contents($messageFile));
+            $message = $yamlContent['messages'][$function];
+
+            $type = $this->getMessageType($message);
+            $option = $this->getMessageOption($message);
+            $nextMessages = $this->getMessageNext($message);
+
+            if($option){
+                $type .= $option;
+            }
+
+            if($type == "group"){
+                if($nextMessages){
+                    foreach($nextMessages as $nextMessage){
+                        $this->processPostback($bot, $userId, $nextMessage);
+                    }
+                }
+            }else{
+                if($bot->functionExists($type)){
+                    $bot->launchFunction($type, array($bot, $parameters, $message));
+    
+                    if($nextMessages){
+                        foreach($nextMessages as $nextMessage){
+                            $this->processPostback($bot, $userId, $nextMessage);
+                        }
+                    }
+                }else{
+                    $bot->sendMessage("⚠️ Error ⚠️");
+                    $bot->sendMessage("Function \"". $type ."\" doesn't exists");
+                }
+            }
+
         }else{
-            $bot->sendMessage("⚠️ Error ⚠️");
-            $bot->sendMessage("Function \"". $function ."\" doesn't exists");
+            if($bot->functionExists($payload)){
+                $bot->launchFunction($payload, array($bot, $parameters, null));
+            }else{
+                $bot->sendMessage("⚠️ Error ⚠️");
+                $bot->sendMessage("Action \"". $payload ."\" doesn't exists");
+            }
         }
     }
     
+    public function getMessageType(array $message){
+        switch($message["type"]){
+            case "text":
+                return "sendText";
+            case "buttons":
+                return "sendButtons";
+            case "image":
+                return "sendImage";
+            case "video":
+                return "sendVideo";
+            case "carousel":
+                return "sendGeneric";
+            case "group":
+                return "group";
+            default:
+                return false;
+        }
+    }
+
+    public function getMessageOption(array $message){
+        if(isset($message["option"])){
+            switch($message["option"]){
+                case "random":
+                    return "Random";
+                case "queue":
+                    return "Queue";
+                default:
+                    return false;
+            }
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function getMessageNext(array $message){
+        if(isset($message["next_messages"])){
+            return $message["next_messages"];
+        }else{
+            return false;
+        }
+        
+    }
+
 }

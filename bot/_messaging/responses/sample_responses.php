@@ -2,7 +2,6 @@
 
 namespace Bot;
 
-
 use App\Bot\Messages\Text;
 use App\Bot\Messages\Image;
 use App\Bot\Messages\Video;

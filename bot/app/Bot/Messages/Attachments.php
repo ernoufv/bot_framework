@@ -37,9 +37,6 @@ class Attachments{
 
     public function upload(){
 
-        echo "UPLOADING";
-
-
         $body = array(
             "message" => array(
                 "attachment" => array(

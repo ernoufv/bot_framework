@@ -1,0 +1,116 @@
+context_lang: fr-FR
+context_name: misc
+
+messages:
+    getStarted:
+        type: text
+        text: Bonjour ! Et bienvenue dans votre bot !
+        next_messages:
+            - discoverChatbot
+            - seeQuickReplies
+
+    seeGroup:
+        type: group
+        next_messages:
+            - sayHello
+            - discoverChatbot
+            - seeQuickReplies
+
+    discoverChatbot:
+        type: text
+        text: Je vous propose aujourd'hui de découvrir l'univers des bots
+
+    cantReply:
+        type: text
+        text: Désolé, mais je ne suis pas encore entraîné pour répondre à vos questions.
+
+    notUnderstoodRandom:
+        type: text
+        option: random
+        text: 
+            - Désolé, mais je n'ai pas compris votre message. Je vous invite à rééssayer.
+            - Oups, je n'arrive pas à comprendre votre demande. Je vous invite à rééssayer.
+            - Mince, je crois que je n'ai pas compris votre message. Je vous invite à rééssayer.
+
+    notUnderstoodQueue:
+        type: text
+        option: queue
+        text: 
+            - Désolé, mais je n'ai pas compris votre message. Je vous invite à rééssayer.
+            - Oups, je n'arrive pas à comprendre votre demande. Je vous invite à rééssayer.
+            - Mince, je crois que je n'ai pas compris votre message. Je vous invite à rééssayer.
+
+    seeQuickReplies:
+        type: text
+        text: 
+            - "Voir :"
+            - Voici des actions
+        option: queue
+        quickreplies:
+            -
+                label: Pas entraîné
+                payload: cantReply
+            -
+                label: Pas compris
+                payload: notUnderstood
+
+    seeButtons:
+        type: buttons
+        text: "Voir :"
+        buttons:
+            -
+                label: Pas entraîné
+                payload: cantReply
+            -
+                label: Pas compris
+                payload: notUnderstood
+            -
+                label: Google
+                payload: https://www.google.com
+
+    seeImage:
+        type: image
+        url: https://picsum.photos/500/300
+        quickreplies:
+            -
+                label: QR 1
+                payload: payload1
+
+    seeVideo:
+        type: video
+        url: https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4
+        next_messages:
+            - sayHello
+
+    seeCarousel:
+        type: carousel
+        option: random
+        cards: 
+            -
+                image: https://picsum.photos/500/300
+                title: Titre d'une carte d'un carousel
+                description: Description d'une carte d'un carousel
+                default_url: https://www.google.com
+                buttons:
+                    -
+                        label: Hello
+                        payload: sayHello
+                    -
+                        label: Google
+                        payload: https://www.google.com
+            -
+                image: https://picsum.photos/500/300
+                title: Autre titre d'une carte d'un carousel
+                description: Autre description d'une carte d'un carousel
+                default_url: https://images.google.com
+                buttons:
+                    -
+                        label: Image
+                        payload: seeImage
+                    -
+                        label: Google Images
+                        payload: https://images.google.com
+    
+
+    
+    
