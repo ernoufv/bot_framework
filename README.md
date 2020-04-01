@@ -9,9 +9,15 @@
 ## License :
 - [MIT](LICENSE)
 
+## Requirements :
+- Docker
+
 ## Stack : 
 - PHP 7.2 (apache)
 - MySQL 5.7
+
+## Base Framework :
+- [Laravel/Lumen Framework](https://lumen.laravel.com/docs/5.8)
 
 ## Capabilities :
 
