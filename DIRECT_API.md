@@ -3,8 +3,6 @@
 
 <hr/>
 
-### Format de la réponse
-
 API returns a JSON composed of :
 - ***source_type*** : type of source message
 - ***source*** : source data of the text or payload
@@ -271,7 +269,4 @@ Status: OK | Code: 200
 }
 ```
 
-
-
 ---
-[Back to top](#direct-api---endpoints)

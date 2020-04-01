@@ -23,7 +23,7 @@
 
 ### Platforms :
 - [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/)
-- [Direct API](DIRECT_API.md)
+- [Direct API (doc)](DIRECT_API.md)
 
 ### NLP ready with :
 - [Google DialogFlow](https://dialogflow.com/)

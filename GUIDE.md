@@ -486,6 +486,8 @@ You can pass parameters each time you call an action in your bot. You just have 
 - Case you pass a payload in buttons/quickreplies :
     - Use a "double underscore" string `__` between action that need to be called and your string parameter
 
+**Note :** When action is triggered with NLP solution, parameters are automatically completed with NLP parameters (eg: numbers in user sentence, context words detected, ..)
+
 <table>
 <tr>
 <td> PHP Coding </td>
@@ -496,7 +498,7 @@ You can pass parameters each time you call an action in your bot. You just have 
 ```php
 function actionName($bot, $param = null){
 
-    $text = new Text("I think I can guess you name !");
+    $text = new Text("I think I can guess your name !");
     $text->addQuickReply("Uh ? Ok !", "actionNameWithPassedParameter__John Doe");
 
     $bot->sendMessage($text);
