@@ -20,13 +20,13 @@ class Log extends Model{
         ->insert(
             [
                 'user_id' => $bot->getUserId(), 
-                //'channel' => $bot->getChannel(),
+                'channel' => $bot->getChannel(),
                 'sender' => 'user',
                 'text' => $messageHelper->getText(),
                 'type' => strtolower($messageHelper->getType()),
                 'payload' => $messageHelper->getPayloadGuess(),
-                //'message' => json_encode($message, JSON_UNESCAPED_UNICODE),
-                //'intent' => $nlp ? $nlp->getIntent() : $messageHelper->getPayloadGuess()
+                'message' => json_encode($message, JSON_UNESCAPED_UNICODE),
+                'intent' => $nlp ? $nlp->getIntent() : $messageHelper->getPayloadGuess()
             ]
         );
     }
@@ -48,13 +48,12 @@ class Log extends Model{
         ->insert(
             [
                 'user_id' => $bot->getUserId(), 
-                //'channel' => $bot->getChannel(),
+                'channel' => $bot->getChannel(),
                 'sender' => 'bot',
                 'type' => strtolower($type->getShortName()),
                 'text' => $message_text,
                 'payload' => $message_payload,
-                //'message' => json_encode($message, JSON_UNESCAPED_UNICODE),
-                //'fb_mid' => $messageId
+                'message' => json_encode($message, JSON_UNESCAPED_UNICODE),
             ]
         );
     }

@@ -1,6 +1,6 @@
 # PHP Bot Framework
 
-## Index : 
+## Indices : 
 - [Installation](INSTALL.md)
 - [Configuration](CONFIGURATION.md)
 - [Development Guide](GUIDE.md)
@@ -16,11 +16,14 @@
 ## Capabilities :
 
 ### Platforms :
-- Facebook Messenger Chatbot
-- Direct API Chatbot
+- [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/)
+- [Direct API](DIRECT_API.md)
 
 ### NLP ready with :
-- Google DialogFlow
-- Microsoft LUIS
-- SAP Conversational AI
-- RASA
+- [Google DialogFlow](https://dialogflow.com/)
+- [Microsoft LUIS](https://www.luis.ai/)
+- [SAP Conversational AI](https://cai.tools.sap/)
+- [RASA](https://rasa.com/)
+
+**Important Note :** There is no GUI to build your bot with this framework. So you need development skills to develop your chatbot. 
+It just simplifies development with pre-build functionnalities & connectors with higher capabilities than GUI most platforms.
