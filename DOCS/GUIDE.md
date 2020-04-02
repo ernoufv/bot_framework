@@ -4,11 +4,12 @@
 
 For now, there is two ways to create messages in your bot :
 
-- Directly from code in conversational files (located in ./bot/_messaging/responses)
-- With YAML structured files (located in ./bot/_messaging/messages)
+- Directly from code in conversational files (located in `./bot/_messaging/responses`)
+    - While you are coding your PHP actions, it's recommended to code processes that are not conversational (like cURL, files parsing,.. ) in `./bot/_messaging/process` and call them from conversational actions.
+- With YAML structured files (located in `./bot/_messaging/messages`)
     - Files must be names *NAME*.**LANGUAGE_CODE**.yml
 
-Files are autoloaded, so you can create them directly in these directories.
+Files are autoloaded in these directories, so you can create them directly in these directories.
 
 You can mix these two methods but YAML structured messages takes advantage on PHP Coded messages if an action exists in the two methods. 
 
@@ -32,6 +33,9 @@ You can mix these two methods but YAML structured messages takes advantage on PH
 #### Parameters :
 - [Actions parameters](#actions-parameters-)
 
+#### Flagging :
+- [Flags](#flags-)
+
 ---
 
 ### **Text message :**
@@ -44,6 +48,12 @@ You can mix these two methods but YAML structured messages takes advantage on PH
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Text;
+
 function actionName($bot, $param = null){
 
     //Send a simple message
@@ -123,6 +133,12 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Image;
+
 function actionName($bot, $param = null){
 
     $image = new Image("https://picsum.photos/500/300");
@@ -170,6 +186,12 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Video;
+
 function actionName($bot, $param = null){
 
     $video = new Video("https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1280_10MG.mp4");
@@ -216,6 +238,12 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Text;
+
 function actionName($bot, $param = null){
 
     $msg = new Text("This messages contrains quick replies");
@@ -271,6 +299,13 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Text;
+use App\Bot\Messages\Templates\Button;
+
 function actionName($bot, $param = null){
 
     $msg = new Text("This messages contrains buttons");
@@ -334,6 +369,13 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Templates\Button;
+use App\Bot\Messages\Templates\Generic;
+
 function actionName($bot, $param = null){
 
     $carousel = new Generic();
@@ -424,6 +466,10 @@ actionName:
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
 function groupActionName($bot, $param = null){
 
     actionName1($bot, $param);
@@ -496,6 +542,12 @@ You can pass parameters each time you call an action in your bot. You just have 
 <td>
 
 ```php
+<?php
+
+namespace Bot;
+
+use App\Bot\Messages\Text;
+
 function actionName($bot, $param = null){
 
     $text = new Text("I think I can guess your name !");
@@ -512,6 +564,67 @@ function actionNameWithPassedParameter($bot, $param = null){
 
     $bot->sendMessage($text);
 
+}
+```
+
+</td>
+</tr>
+</table>
+
+---
+
+### **Flags :**
+
+Flags are used to attend user input. When a flag is activated, the bot will not try to detect a user intent and the data typed can be used for the next action called.
+When it's created, a flag takes two parameters :
+- Flag action (which is the name of the action that will be called when the used have typed its response)
+- Flag data (arbitrary data that is saved in database, if you want to pass a parameter or whatever to the next action)
+
+Once the flag is triggered, the action called by the flag contains data as parameter. This an associative array containing these data :
+- `flag_data` : your data defined previously
+- `flag_user_input` : what the user typed
+
+Note that a flag have to be triggered be triggered with a text. The user can discard the flag with a quick-reply that is automatically added and used to delete the flag.
+<table>
+<tr>
+<td> PHP Coding </td>
+</tr>
+<tr>
+<td>
+
+```php
+<?php
+namespace Bot;
+
+use App\Bot\Messages\Text;
+
+function actionName($bot, $param = null){
+    $text = new Text("Can you please type an address ? I'm able to give you the exact coordinates !");
+
+    $bot->sendMessage($text);
+    $bot->createFlag("calledByFlagAction", "userAddressRequested");
+}
+
+function calledByFlagAction($bot, $param = null){
+
+    $data = $param["flag_data"]; // > "userAddressRequested"
+    $userInput = $param["flag_user_input"]; // > "Place des quinconces à bordeaux"
+
+    //Now, I can call a simple process doing a cURL to a geocoding service (Open Street Maps, geo.api.gouv.fr, Google Maps)
+    $coordinates = myGeocodingProcess($userInput); // returns an associative array with lat/lng, for this example
+
+    $text = new Text("Exact coordinates are :
+        \nlat : ". $coordinates["lat"] ."
+        \nlng : ". $coordinates["lng"] ."
+        \nHave a great day !");
+
+    // Response sent to user :
+    // "Exact coordinates are : 
+    // lat : 44.8447171
+    // lng : -0.5734751
+    // Have a great day !"
+
+    $bot->sendMessage($text);
 }
 ```
 

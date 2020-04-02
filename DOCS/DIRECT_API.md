@@ -1,9 +1,8 @@
-
 # Direct API - Endpoints
 
 <hr/>
 
-API returns a JSON composed of :
+API always returns a JSON composed of :
 - ***source_type*** : type of source message
 - ***source*** : source data of the text or payload
 - ***sender*** : bot

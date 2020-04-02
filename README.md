@@ -1,9 +1,9 @@
 # PHP Bot Framework
 
 ## Indices : 
-- [Installation](INSTALL.md)
-- [Configuration](CONFIGURATION.md)
-- [Development Guide](GUIDE.md)
+- [Installation](DOCS/INSTALL.md)
+- [Configuration](DOCS/CONFIGURATION.md)
+- [Development Guide](DOCS/GUIDE.md)
 
 
 ## License :
@@ -23,7 +23,7 @@
 
 ### Platforms :
 - [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/)
-- [Direct API (doc)](DIRECT_API.md)
+- [Direct API (doc)](DOCS/DIRECT_API.md)
 
 ### NLP ready with :
 - [Google DialogFlow](https://dialogflow.com/)
