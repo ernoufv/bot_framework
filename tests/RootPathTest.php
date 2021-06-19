@@ -3,19 +3,19 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class ExampleTest extends TestCase
+class RootPathTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic test.
      *
      * @return void
      */
-    public function testExample()
+    public function testRootPath()
     {
         $this->get('/');
 
         $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
+            'BotRoot', $this->response->getContent()
         );
     }
 }
