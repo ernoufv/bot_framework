@@ -1,6 +1,6 @@
 # Environment install
 
-> docker image build --tag bot-framework .\docker
+> docker image build --tag bot-framework ./docker
 
 When image is created :
 - create bot database

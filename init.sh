@@ -13,7 +13,7 @@ if test ! -f "$file"; then
     printf  "#!/usr/bin/env bash\ndocker-compose -f docker-compose.yml up" -> ./run
     chmod +x ./run
 
-    docker-compose down
+    docker-compose stop
 
     echo "Installation done ! Now, run \"./run\""
 else
