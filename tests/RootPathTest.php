@@ -15,7 +15,7 @@ class RootPathTest extends TestCase
         $this->get('/');
 
         $this->assertEquals(
-            'BotRoot', $this->response->getContent()
+            'Bot Root', $this->response->getContent()
         );
     }
 }
